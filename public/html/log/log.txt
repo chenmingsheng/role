@@ -1,0 +1,9 @@
+用户:admin->操作类型:json->操作文本:删除角色->操作ip:127.0.0.1->操作URL：/admin/role/del.html->操作时间1535441351用户:admin->操作类型:单表备份数据库->操作文本:cms_job：备份成功->操作ip:127.0.0.1->操作URL：/admin/database/backup/type/1/id/cms_job->操作时间1535524049
+用户:admin->操作类型:下载完全备份文件->操作文本:获取失败，暂无最新备份文件->操作ip:127.0.0.1->操作URL：/admin/database/download/type/2/->操作时间1535524132
+用户:admin->操作类型:下载完全备份文件->操作文本:下载成功->操作ip:127.0.0.1->操作URL：/admin/database/download/type/2/->操作时间1535524132
+用户:admin->操作类型:下载完全备份文件->操作文本:下载成功->操作ip:127.0.0.1->操作URL：/admin/database/download/type/2/->操作时间1535524154
+用户:admin->操作类型:下载单表备份文件->操作文本:cms_user->操作ip:127.0.0.1->操作URL：/admin/database/download/type/1/id/cms_user->操作时间1535524186
+用户:admin->操作类型:单表备份数据库->操作文本:cms_job：备份成功->操作ip:127.0.0.1->操作URL：/admin/database/backup/type/1/id/cms_job->操作时间1535524203
+用户:admin->操作类型:单表备份数据库->操作文本:cms_job：备份成功->操作ip:127.0.0.1->操作URL：/admin/database/backup/type/1/id/cms_job->操作时间1535524209
+用户:admin->操作类型:单表备份数据库->操作文本:cms_job：备份成功->操作ip:127.0.0.1->操作URL：/admin/database/backup/type/1/id/cms_job->操作时间1535524213
+用户:admin->操作类型:单表备份数据库->操作文本:cms_job：备份成功->操作ip:127.0.0.1->操作URL：/admin/database/backup/type/1/id/cms_job->操作时间1535524298

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>岗位列表页面</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/font.css">
+  <link rel="stylesheet" href="/css/xadmin.css">
+  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+  <!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="layui-anim layui-anim-up">
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+  <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+    <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+  <div class="layui-row">
+    <form class="layui-form layui-col-md12 x-so">
+      <input class="layui-input" placeholder="开始日" name="start" id="start">
+      <input class="layui-input" placeholder="截止日" name="end" id="end">
+      <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+      <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+    </form>
+  </div>
+  <xblock>
+    {if condition="$CommonController->vif('5')"}<button class="layui-btn" onclick="x_admin_show('添加用户','/adduser',650,450)"><i class="layui-icon"></i>添加</button>{/if}
+  </xblock>
+
+  <table id="info" lay-filter="test"></table>
+
+</div>
+<script type="text/javascript" src="/common/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/xadmin.js"></script>
+<script>
+  layui.use(['laydate','table'],function(){
+    var laydate = layui.laydate;
+
+    //执行一个laydate实例
+    laydate.render({
+      elem: '#start' //指定元素
+    });
+
+    //执行一个laydate实例
+    laydate.render({
+      elem: '#end' //指定元素
+    });
+    var table = layui.table;
+
+    table.render({
+      elem: '#info'
+      ,height: 315
+      ,url:"{:url('user/uinfo')}" //数据接口
+      ,page: true //开启分页
+      ,cols: [[ //表头
+        {field: 'uid', title: 'ID', sort: true, fixed: 'left'}
+        ,{field: 'u_name', title: '用户名',sort: true}
+        ,{field: 'u_nick', title: '昵称',sort: true}
+        ,{field: 'j_name', title: '所属岗位',sort: true}
+        ,{field: 's_name', title: '所属部门',sort: true}
+        ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+      ]]
+    });
+    table.on('tool(test)', function(obj){
+      var data = obj.data; //获得当前行数据
+      var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+      var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+     if(layEvent === 'del'){ //删除
+        layer.confirm('真的删除行么', function(index){
+          requestServer({uid:data.uid},'');
+          obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
+          layer.close(index);
+        });
+      } else if(layEvent === 'edit'){
+       x_admin_show('修改用户信息','/edit?uid='+data.uid,650,450);
+      }
+    });
+  });
+</script>
+<script type="text/html" id="barDemo">
+  {if condition="$CommonController->vif('6')"}<a lay-event="edit" title="修改页面" href="javascript:;">
+    <i class="layui-icon">&#xe631;</i>
+  </a>
+  {/if}
+  {if condition="$CommonController->vif('7')"}<a title="删除" lay-event="del" href="javascript:;">
+    <i class="layui-icon">&#xe640;</i>
+  </a>
+  {/if}
+</script>
+</body>
+
+</html>

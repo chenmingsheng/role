@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>岗位修改</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="layui-anim layui-anim-up">
+<div class="x-body">
+    <ul id="demo" style="float: left"></ul>
+    <form class="layui-form" style="float: left;">
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label">
+                <span class="x-red">*</span>角色名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" name="j_name" required  lay-verify="required" placeholder="请输入角色名称" value="{$job.j_name}" class="layui-input">
+                <input type="hidden" name="j_id"  value="{$job.j_id}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label">
+            </label>
+            <button  class="layui-btn" lay-filter="*" lay-submit>
+                修改
+            </button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/common/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/xadmin.js"></script>
+<script type="text/javascript" src="/common/common.js"></script>
+
+<script>
+    layui.use(['form','tree'],function(){
+        var form = layui.form;
+        var layer = layui.layer,$ = layui.jquery;
+        var s='{$json}';
+        var v=s.replace(/&quot;/g,'"');
+        layui.tree({
+            elem: '#demo',
+            check: 'checkbox',
+            skin: 'as',
+            drag: true,
+            checkboxName: 'id',
+            checkboxStyle: "",
+            nodes: JSON.parse(v)
+        });
+
+        form.on('submit(*)', function(data){
+            var id =[];
+            $('input[name="id"]:checked').each(function(){
+                id.push($(this).val());
+            });
+            var info={j_id:data.field.j_id,id:id,j_name:data.field.j_name}
+            var state=requestServer(info,'/rmodify');
+            if(state.code==200){
+                layer.msg(state.msg,{time:1000},function(index){
+                    layer.close(index);
+                });
+            }else{
+                layer.msg(state.msg,{time:1000});
+            }
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+    });
+</script>
+</body>
+
+</html>
