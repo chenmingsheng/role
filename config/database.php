@@ -14,6 +14,7 @@ return [
     'type'            => 'mysql',
     // 服务器地址
     'hostname'        => '193.112.91.234',
+		'hostname'        => '127.0.0.1', 
     // 数据库名
     'database'        => 'cmsdb',
     // 用户名
